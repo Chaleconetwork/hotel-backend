@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using static Library.Utils;
 
 namespace Backend.Data
 {
@@ -7,7 +8,7 @@ namespace Backend.Data
     {
         public static async Task Initialize(Context context)
         {
-            if (false)
+            if (true)
             {
                 await context.Database.EnsureDeletedAsync();
                 await context.Database.EnsureCreatedAsync();
@@ -20,8 +21,8 @@ namespace Backend.Data
         {
             if (!await context.Users.AnyAsync())
             {
-                await context.Users.AddAsync(new User() { Id = 1, Username = "chaleco", Password = "1234", Rol = "administrador", Status = "activo" });
-                await context.Users.AddAsync(new User() { Id = 2, Username = "junior", Password = "1234", Rol = "administrador", Status = "activo" });
+                await context.Users.AddAsync(new User() { Id = 1, Username = "chaleco", Password = Encrypt("1234"), Rol = "administrador", Status = true });
+                await context.Users.AddAsync(new User() { Id = 2, Username = "junior", Password = Encrypt("12345"), Rol = "administrador", Status = true });
             }
 
             await context.SaveChangesAsync();

@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Backend.Models
+﻿namespace Backend.DTOs
 {
-    public class User
+    public class UserDTO: ErrorDTO
     {
-        [Key]
         public int Id { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
         public string? Rol { get; set; }
         public bool? Status { get; set; }
+        public string? Token { get; set; }
     }
 }
