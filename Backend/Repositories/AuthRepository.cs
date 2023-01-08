@@ -23,12 +23,18 @@ namespace Backend.Repositories
 
         public async Task<UserDTO>? RegisterUser(UserDTO dto)
         {
-            var users = await _context.Users.OrderBy(i => i.Id).AsNoTracking().ToListAsync();
+            var users = await _context.Users.OrderBy(i => i.UserId).AsNoTracking().ToListAsync();
             return null;
         }
 
         public async Task<UserDTO>? AuthUser(UserDTO dto)
         {
+            if (String.IsNullOrEmpty(dto.Username) || String.IsNullOrEmpty(dto.Password))
+            {
+                UserDTO error = new() { IsError = true, MessageError = "El usuario o contraseña no son validos" };
+                return error;
+            }
+
             //Verificar si usuario existe
             var checkUser = await _context.Users.Where(i => i.Username == dto.Username).AsNoTracking().FirstOrDefaultAsync();
 
@@ -45,11 +51,8 @@ namespace Backend.Repositories
                 return error;
             }
 
-            //Generar token
-            var token = _jwtTokenGeneratorInterface.GenerateJwtToken(dto);
-
             UserDTO userDto = _map.Map<UserDTO>(checkUser);
-            userDto.Token = token;
+            userDto.Token = _jwtTokenGeneratorInterface.GenerateJwtToken(userDto);
             userDto.Password = null;
 
             return userDto;

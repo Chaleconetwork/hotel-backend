@@ -16,6 +16,17 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    //CORS Polices
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("NewPolices", api =>
+        {
+            api.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+    });
+
     //Bd
     string con = builder.Configuration.GetConnectionString("Connection");
     var secret = builder.Configuration["Secret"];
@@ -91,6 +102,8 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+
+    app.UseCors("NewPolices");
 
     app.UseAuthorization();
 

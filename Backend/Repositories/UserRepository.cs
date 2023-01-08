@@ -16,7 +16,7 @@ namespace Backend.Repositories
 
         public async Task<List<User>>? GetUsers()
         {
-            var users = await _context.Users.OrderBy(i => i.Id).AsNoTracking().ToListAsync();
+            var users = await _context.Users.OrderBy(i => i.UserId).AsNoTracking().ToListAsync();
 
             return users;
         }

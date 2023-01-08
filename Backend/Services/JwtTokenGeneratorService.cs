@@ -31,8 +31,8 @@ namespace Backend.Services
             ClaimsIdentity claims = new(new Claim[]
             {
                 new Claim(type: ClaimTypes.Name, dto.Username ?? ""),
-                new Claim(type: ClaimTypes.Role, dto.Rol),
-                new Claim(type: ClaimTypes.NameIdentifier, dto.Id.ToString())
+                new Claim(type: ClaimTypes.Role, dto.RolId.ToString()),
+                new Claim(type: ClaimTypes.NameIdentifier, dto.UserId.ToString())
             });
 
             DateTime chileTimeZone = ChileTimeZone();

@@ -12,6 +12,8 @@ namespace Backend.Data
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Rol> Rols { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
 
